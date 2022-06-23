@@ -39,7 +39,7 @@ public class Car implements Serializable {
     @Column(name = "reg_date")
     private LocalDate regDate;
 
-    /*@OneToMany(mappedBy = "car", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<Reservation> reservation;*/
+    @OneToMany(mappedBy = "car", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<Reservation> reservation;
 
 }
