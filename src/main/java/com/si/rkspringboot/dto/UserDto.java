@@ -18,6 +18,6 @@ public class UserDto {
     private LocalDate birthday;
     private boolean admin;
 
-    private Set<Reservation> reservations = new HashSet<>();
+    //private Set<Reservation> reservations = new HashSet<>();
 
 }

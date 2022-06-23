@@ -17,6 +17,6 @@ public class CarDto {
     private String numPlate;
     private LocalDate regDate;
 
-    private Set<Reservation> reservation = new HashSet<>();
+    //private Set<Reservation> reservation = new HashSet<>();
 
 }
