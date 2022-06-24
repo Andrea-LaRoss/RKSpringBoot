@@ -4,6 +4,7 @@ import com.si.rkspringboot.dto.CarDto;
 import com.si.rkspringboot.entity.Car;
 import com.si.rkspringboot.service.CarService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -78,7 +79,7 @@ public class CarController {
 
 
     @GetMapping("/regdate/{value}")
-    public ResponseEntity<List<CarDto>> searchRegDate(@PathVariable("value") LocalDate regDate) {
+    public ResponseEntity<List<CarDto>> searchRegDate(@PathVariable("value") String regDate) {
         List<CarDto> carsList = carService.searchByRegDate(regDate);
         if(carsList == null) {
             return new ResponseEntity<List<CarDto>>(HttpStatus.NOT_FOUND);

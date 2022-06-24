@@ -1,5 +1,6 @@
 package com.si.rkspringboot.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -17,11 +18,13 @@ public class Reservation implements Serializable {
     @Column(name = "id")
     private long id;
 
-
+    @JsonBackReference
     @ManyToOne
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User user;
 
+
+    @JsonBackReference
     @ManyToOne
     @JoinColumn(name = "car_id", referencedColumnName = "id")
     private Car car;
@@ -39,5 +42,7 @@ public class Reservation implements Serializable {
 
     @Column(name = "status")
     private String status;
+
+
 
 }

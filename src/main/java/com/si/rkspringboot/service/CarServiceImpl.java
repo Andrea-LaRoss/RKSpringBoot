@@ -59,7 +59,7 @@ public class CarServiceImpl implements CarService{
 
 
     @Override
-    public List<CarDto> searchByRegDate(LocalDate regDate) {
+    public List<CarDto> searchByRegDate(String regDate) {
         List<Car> carsList = carRepository.searchByRegDateContaining(regDate);
         return this.convertToDtoList(carsList);
     }

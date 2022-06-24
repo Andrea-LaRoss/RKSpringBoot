@@ -17,7 +17,7 @@ import javax.xml.ws.Response;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/reservation")
+@RequestMapping("/api/reservations")
 public class ReservationController {
 
     @Autowired

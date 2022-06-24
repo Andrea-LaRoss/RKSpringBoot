@@ -18,7 +18,7 @@ public interface CarService {
 
     public List<CarDto> searchByNumPlate(String numPlate);
 
-    public List<CarDto> searchByRegDate(LocalDate regDate);
+    public List<CarDto> searchByRegDate(String regDate);
 
     public CarDto checkNumPlate(String numPlate);
 

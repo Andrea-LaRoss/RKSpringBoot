@@ -1,5 +1,7 @@
 package com.si.rkspringboot.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -39,6 +41,8 @@ public class Car implements Serializable {
     @Column(name = "reg_date")
     private LocalDate regDate;
 
+
+    @JsonManagedReference
     @OneToMany(mappedBy = "car", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Reservation> reservation;
 
