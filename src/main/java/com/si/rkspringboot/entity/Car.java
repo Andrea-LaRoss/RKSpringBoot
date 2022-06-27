@@ -42,7 +42,7 @@ public class Car implements Serializable {
     private LocalDate regDate;
 
 
-    @JsonManagedReference
+    @JsonIgnore
     @OneToMany(mappedBy = "car", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Reservation> reservation;
 

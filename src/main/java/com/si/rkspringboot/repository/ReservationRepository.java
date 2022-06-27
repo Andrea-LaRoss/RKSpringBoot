@@ -9,6 +9,6 @@ import java.util.List;
 
 public interface ReservationRepository extends JpaRepository<Reservation, Long> {
 
-    List<Car> searchByCarBetween(LocalDate startDate, LocalDate endDate);
+    List<Reservation> searchByStartDateBetween(LocalDate startDate, LocalDate endDate);
 
 }
