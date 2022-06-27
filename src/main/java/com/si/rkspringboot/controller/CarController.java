@@ -79,7 +79,7 @@ public class CarController {
 
 
     @GetMapping("/regdate/{value}")
-    public ResponseEntity<List<CarDto>> searchRegDate(@PathVariable("value") String regDate) {
+    public ResponseEntity<List<CarDto>> searchRegDate(@PathVariable("value") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) String regDate) {
         List<CarDto> carsList = carService.searchByRegDate(regDate);
         if(carsList == null) {
             return new ResponseEntity<List<CarDto>>(HttpStatus.NOT_FOUND);

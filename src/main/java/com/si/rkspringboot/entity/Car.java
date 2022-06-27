@@ -1,5 +1,6 @@
 package com.si.rkspringboot.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Data;
@@ -37,7 +38,6 @@ public class Car implements Serializable {
     private String numPlate;
 
 
-    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     @Column(name = "reg_date")
     private LocalDate regDate;
 

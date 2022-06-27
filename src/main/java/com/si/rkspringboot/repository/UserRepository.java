@@ -14,7 +14,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     List<User> searchByLastNameContaining(String lastName);
 
-    List<User> searchByBirthdayContaining(LocalDate birthday);
+    List<User> searchAllByBirthday(LocalDate birthday);
 
     User searchUserByEmail(String email);
 

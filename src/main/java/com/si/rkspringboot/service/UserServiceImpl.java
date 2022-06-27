@@ -52,7 +52,7 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public List<UserDto> searchByBirthday(LocalDate birthday) {
-        List<User> usersList = userRepository.searchByBirthdayContaining(birthday);
+        List<User> usersList = userRepository.searchAllByBirthday(birthday);
         return this.convertToDtoList(usersList);
     }
 

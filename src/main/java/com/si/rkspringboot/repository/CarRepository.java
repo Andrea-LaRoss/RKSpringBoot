@@ -16,7 +16,7 @@ public interface CarRepository extends JpaRepository<Car, Long> {
 
     List<Car> searchByNumPlateContaining(String numPlate);
 
-    List<Car> searchByRegDateContaining(String regDate);
+    List<Car> searchAllByRegDate(String regDate);
 
     Car searchCarByNumPlate(String numPlate);
 

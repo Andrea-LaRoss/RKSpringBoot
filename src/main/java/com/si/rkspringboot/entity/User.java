@@ -1,5 +1,6 @@
 package com.si.rkspringboot.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Data;
@@ -37,7 +38,6 @@ public class User implements Serializable {
     private String lastName;
 
 
-    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     @Column(name = "birthday")
     private LocalDate birthday;
 

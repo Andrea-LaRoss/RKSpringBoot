@@ -3,7 +3,9 @@ package com.si.rkspringboot.controller;
 import com.si.rkspringboot.dto.UserDto;
 import com.si.rkspringboot.entity.User;
 import com.si.rkspringboot.service.UserService;
+import org.apache.tomcat.jni.Local;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -67,7 +69,7 @@ public class UserController {
 
 
     @GetMapping("/birthday/{value}")
-    public ResponseEntity<List<UserDto>> searchBirthday(@PathVariable("value") LocalDate birthday) {
+    public ResponseEntity<List<UserDto>> searchBirthday(@PathVariable("value") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate birthday) {
         List<UserDto> usersList = userService.searchByBirthday(birthday);
         if(usersList == null) {
             return new ResponseEntity<List<UserDto>>(HttpStatus.NOT_FOUND);
