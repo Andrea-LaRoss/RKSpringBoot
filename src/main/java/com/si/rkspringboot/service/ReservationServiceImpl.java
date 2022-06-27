@@ -65,15 +65,6 @@ public class ReservationServiceImpl implements ReservationService{
     }
 
 
-    private List<CarDto> convertToDtoCars(List<Car> carsList) {
-        List<CarDto> carsDto = new ArrayList<>();
-        if (carsList != null) {
-            carsDto = carsList
-                    .stream()
-                    .map(source -> modelMapper.map(source, CarDto.class))
-                    .collect(Collectors.toList());
-        }
-        return carsDto;
-    }
+
 
 }
