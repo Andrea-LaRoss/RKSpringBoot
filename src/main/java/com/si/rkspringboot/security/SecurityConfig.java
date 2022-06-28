@@ -1,4 +1,4 @@
-/*package com.si.rkspringboot.security;
+package com.si.rkspringboot.security;
 
 
 import org.springframework.context.annotation.Bean;
@@ -61,4 +61,4 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .httpBasic().realmName(REALM).authenticationEntryPoint(getBasicAuthEntryPoint());
     }
-}*/
+}
