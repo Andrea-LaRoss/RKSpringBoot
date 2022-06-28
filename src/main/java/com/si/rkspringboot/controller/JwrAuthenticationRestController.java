@@ -1,4 +1,4 @@
-/*package com.si.rkspringboot.controller;
+package com.si.rkspringboot.controller;
 
 import org.springframework.web.bind.annotation.RestController;
 
@@ -8,4 +8,4 @@ public class JwrAuthenticationRestController {
 
 
 
-}*/
+}
