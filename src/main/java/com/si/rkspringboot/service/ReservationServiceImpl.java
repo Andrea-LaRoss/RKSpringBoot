@@ -4,6 +4,7 @@ import com.si.rkspringboot.dto.CarDto;
 import com.si.rkspringboot.dto.ReservationDto;
 import com.si.rkspringboot.entity.Car;
 import com.si.rkspringboot.entity.Reservation;
+import com.si.rkspringboot.repository.CarRepository;
 import com.si.rkspringboot.repository.ReservationRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +22,9 @@ public class ReservationServiceImpl implements ReservationService{
     private ReservationRepository reservationRepository;
 
     @Autowired
+    private CarRepository carRepository;
+
+    @Autowired
     private ModelMapper modelMapper;
 
 
@@ -32,9 +36,12 @@ public class ReservationServiceImpl implements ReservationService{
 
 
     @Override
-    public List<ReservationDto> availableCars(LocalDate startDate, LocalDate endDate) {
-        List<Reservation> carsList = reservationRepository.searchByStartDateBetween(startDate, endDate);
-        return convertToDtoList(carsList);
+    public List<CarDto> availableCars(LocalDate startDate, LocalDate endDate) {
+        List<Reservation> reservationsList = reservationRepository.searchAllByStartDateBetweenOrEndDateBetween(startDate, endDate, startDate, endDate);
+        List<Car> carsList = carRepository.findAll();
+        reservationsList.forEach(r -> carsList.remove(r.getCar()));
+
+        return convertToDtoCars(carsList);
     }
 
     @Override
@@ -65,6 +72,15 @@ public class ReservationServiceImpl implements ReservationService{
     }
 
 
-
+    private List<CarDto> convertToDtoCars(List<Car> carsList) {
+        List<CarDto> carsDto = new ArrayList<>();
+        if (carsList != null) {
+            carsDto = carsList
+                    .stream()
+                    .map(source -> modelMapper.map(source, CarDto.class))
+                    .collect(Collectors.toList());
+        }
+        return carsDto;
+    }
 
 }

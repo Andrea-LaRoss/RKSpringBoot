@@ -13,7 +13,7 @@ public interface ReservationService {
 
     public Reservation getReservation(Long id);
 
-    public List<ReservationDto> availableCars(LocalDate startDate, LocalDate endDate);
+    public List<CarDto> availableCars(LocalDate startDate, LocalDate endDate);
 
     public void delReservation(Reservation reservation);
 

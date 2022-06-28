@@ -1,8 +1,9 @@
-package com.si.rkspringboot.security;
+/*package com.si.rkspringboot.security;
 
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.User;
@@ -13,6 +14,8 @@ import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
+
+    private static String REALM = "REAME";
 
     @Bean
     public BCryptPasswordEncoder passwordEncoder() {
@@ -42,7 +45,20 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     }
 
+
     private static final String[] USER_MATCHER = {"/api/reservation/**"};
     private static final String[] ADMIN_MATCHER = {"/api/**"};
 
-}
+
+   @Override
+   protected  void configure(HttpSecurity http) throws Exception {
+
+        http.csrf().disable()
+                .authorizeRequests()
+                .antMatchers(USER_MATCHER).hasAnyRole("USER")
+                .antMatchers(ADMIN_MATCHER).hasAnyRole("ADMIN")
+                .anyRequest().authenticated()
+                .and()
+                .httpBasic().realmName(REALM).authenticationEntryPoint(getBasicAuthEntryPoint());
+    }
+}*/
