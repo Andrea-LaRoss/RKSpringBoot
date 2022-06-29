@@ -53,8 +53,8 @@ public class JWTWebSecurityConfig extends WebSecurityConfigurerAdapter {
         return super.authenticationManagerBean();
     }
 
-    private static final String[] ADMIN_MATCHER = { "/api/articoli/inserisci/**",
-            "/api/articoli/modifica/**", "/api/articoli/elimina/**" };
+    private static final String[] ADMIN_MATCHER = {"/api/**"};
+
 
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
@@ -93,5 +93,6 @@ public class JWTWebSecurityConfig extends WebSecurityConfigurerAdapter {
     {
         return new CustomAccessDeniedHandler();
     }
+
 }
 
