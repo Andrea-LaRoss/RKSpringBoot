@@ -52,7 +52,11 @@ public class User implements Serializable {
 
     @Override
     public String toString() {
-        return "Email:" + this.email + " Password: " + this.password;
+        if(this.isAdmin()) {
+            return "ADMIN";
+        } else {
+            return "USER";
+        }
     }
 
 }

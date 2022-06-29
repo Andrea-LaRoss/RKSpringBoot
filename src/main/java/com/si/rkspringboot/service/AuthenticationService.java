@@ -33,7 +33,8 @@ public class AuthenticationService {
         ObjectNode userNode = mapper.convertValue(user, ObjectNode.class);
         userNode.remove("password");
         Map claimMap = new HashMap(0);
-        claimMap.put("user", user);
+        claimMap.put("user", user.getEmail());
+        claimMap.put("roles", user.toString());
         return JwtProvider.createJwt(email, claimMap);
     }
 }
