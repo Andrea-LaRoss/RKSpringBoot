@@ -10,4 +10,5 @@ public class UserConfig {
     private String srvUrl;
     private String email;
     private String password;
+
 }

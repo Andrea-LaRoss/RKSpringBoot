@@ -47,6 +47,7 @@ public class CustomUserDetailsService implements UserDetailsService {
 
         User.UserBuilder builder = null;
         builder = org.springframework.security.core.userdetails.User.withUsername(user.getEmail());
+        builder.disabled(false);
         builder.password(user.getPassword());
 
         if(user.isAdmin()) {
@@ -88,4 +89,5 @@ public class CustomUserDetailsService implements UserDetailsService {
 
         return user;
     }
+
 }
