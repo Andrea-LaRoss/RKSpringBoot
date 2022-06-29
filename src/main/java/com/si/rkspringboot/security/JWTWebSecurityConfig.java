@@ -53,8 +53,6 @@ public class JWTWebSecurityConfig extends WebSecurityConfigurerAdapter {
         return super.authenticationManagerBean();
     }
 
-
-    //private static final String[] USER_MATCHER = { "/api/articoli/cerca/**"};
     private static final String[] ADMIN_MATCHER = { "/api/articoli/inserisci/**",
             "/api/articoli/modifica/**", "/api/articoli/elimina/**" };
 
@@ -66,8 +64,6 @@ public class JWTWebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeRequests()
-                //.antMatchers(HttpMethod.OPTIONS,"/**").permitAll()
-                //.antMatchers(USER_MATCHER).hasAnyRole("USER")
                 .antMatchers(ADMIN_MATCHER).hasAnyRole("ADMIN")
                 .anyRequest().authenticated()
                 .and()

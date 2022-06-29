@@ -49,10 +49,10 @@ public class JwtAuthenticationRestController
 	{
 		log.info("Autenticazione e Generazione Token");
 
-		authenticate(authenticationRequest.getUsername(), authenticationRequest.getPassword());
+		authenticate(authenticationRequest.getEmail(), authenticationRequest.getPassword());
 
 		final UserDetails userDetails = userDetailsService
-				.loadUserByUsername(authenticationRequest.getUsername());
+				.loadUserByUsername(authenticationRequest.getEmail());
 
 		final String token = jwtTokenUtil.generateToken(userDetails);
 		
