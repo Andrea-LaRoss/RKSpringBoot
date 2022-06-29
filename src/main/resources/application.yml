@@ -1,7 +1,0 @@
-sicurezza:
-  uri: /auth
-  refresh: /refresh
-  header: Authorization
-  prefix: Bearer
-  expiration: 3600
-  secret: $Testing@mail.it
