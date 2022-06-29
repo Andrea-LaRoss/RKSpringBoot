@@ -1,6 +1,7 @@
 package com.si.rkspringboot.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.si.rkspringboot.entity.User;
 import com.si.rkspringboot.repository.UserRepository;
 import com.si.rkspringboot.security.JwtProvider;
@@ -27,10 +28,12 @@ public class AuthenticationService {
         if (!this.passwordEncoder.matches(password, user.getPassword())) {
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Bad credentials");
         }
-        ObjectNode userNode = new ObjectMapper().convertValue(user, ObjectNode.class);
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.registerModule(new JavaTimeModule());
+        ObjectNode userNode = mapper.convertValue(user, ObjectNode.class);
         userNode.remove("password");
         Map claimMap = new HashMap(0);
-        claimMap.put("user", userNode);
+        claimMap.put("user", user);
         return JwtProvider.createJwt(email, claimMap);
     }
 }

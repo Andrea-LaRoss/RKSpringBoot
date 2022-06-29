@@ -50,4 +50,9 @@ public class User implements Serializable {
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Reservation> reservations;
 
+    @Override
+    public String toString() {
+        return "Email:" + this.email + " Password: " + this.password;
+    }
+
 }
