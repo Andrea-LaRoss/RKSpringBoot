@@ -3,14 +3,19 @@ package com.si.rkspringboot.security;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Clock;
 import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.impl.DefaultClock;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.function.Function;
+import java.util.stream.Collectors;
 
 @Component
 public class JwtTokenUtil implements Serializable {
@@ -62,6 +67,60 @@ public class JwtTokenUtil implements Serializable {
 		final String username = getUsernameFromToken(token);
 		
 		return (username.equals(userDetails.getUsername()) && !isTokenExpired(token));
+	}
+
+
+	public String generateToken(UserDetails userDetails)
+	{
+		Map<String, Object> claims = new HashMap<>();
+		return doGenerateToken(claims, userDetails);
+	}
+
+	private String doGenerateToken(Map<String, Object> claims, UserDetails userDetails)
+	{
+		final Date createdDate = clock.now();
+		final Date expirationDate = calculateExpirationDate(createdDate);
+
+		final String secret = jwtConfig.getSecret();
+
+		return Jwts.builder()
+				.setClaims(claims)
+				.setSubject(userDetails.getUsername())
+				.claim("authorities", userDetails.getAuthorities()
+						.stream()
+						.map(GrantedAuthority::getAuthority).collect(Collectors.toList()))
+				.setIssuedAt(createdDate)
+				.setExpiration(expirationDate)
+				.signWith(SignatureAlgorithm.HS512, secret.getBytes())
+				.compact();
+	}
+
+	public Boolean canTokenBeRefreshed(String token)
+	{
+		return (isTokenExpired(token));
+	}
+
+	public String refreshToken(String token)
+	{
+		final Date createdDate = clock.now();
+		final Date expirationDate = calculateExpirationDate(createdDate);
+
+		final String secret = jwtConfig.getSecret();
+
+		final Claims claims = getAllClaimsFromToken(token);
+		claims.setIssuedAt(createdDate);
+		claims.setExpiration(expirationDate);
+
+		return Jwts.builder()
+				.setClaims(claims)
+				.signWith(SignatureAlgorithm.HS512, secret.getBytes())
+				.compact();
+	}
+
+
+	private Date calculateExpirationDate(Date createdDate)
+	{
+		return new Date(createdDate.getTime() + jwtConfig.getExpiration() * 1000);
 	}
 
 }
