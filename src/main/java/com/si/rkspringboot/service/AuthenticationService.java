@@ -5,7 +5,8 @@ import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.si.rkspringboot.entity.User;
 import com.si.rkspringboot.repository.UserRepository;
 import com.si.rkspringboot.security.JwtProvider;
-import com.fasterxml.jackson.databind.node.ObjectNode;import org.springframework.beans.factory.annotation.Autowired;
+import com.fasterxml.jackson.databind.node.ObjectNode;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -31,10 +32,8 @@ public class AuthenticationService {
         ObjectMapper mapper = new ObjectMapper();
         mapper.registerModule(new JavaTimeModule());
         ObjectNode userNode = mapper.convertValue(user, ObjectNode.class);
-        userNode.remove("password");
-        Map claimMap = new HashMap(0);
-        claimMap.put("user", user.getEmail());
-        claimMap.put("roles", user.toString());
+        Map<String, Object> claimMap = new HashMap<>(0);
+        claimMap.put("user", userNode);
         return JwtProvider.createJwt(email, claimMap);
     }
 }

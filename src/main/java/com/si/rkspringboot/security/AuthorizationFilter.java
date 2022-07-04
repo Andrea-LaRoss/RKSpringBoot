@@ -2,13 +2,16 @@ package com.si.rkspringboot.security;
 
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.si.rkspringboot.entity.User;
 import com.si.rkspringboot.repository.UserRepository;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import com.si.rkspringboot.service.CustomUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
@@ -21,28 +24,34 @@ import java.io.IOException;
 
 public class AuthorizationFilter extends BasicAuthenticationFilter {
 
-    @Autowired
-    private final UserRepository userRepository;
 
+    private final UserRepository userRepository;
     private final ObjectMapper mapper;
 
-    private JwtProvider provider;
+    private CustomUserDetailsService customUserDetailsService;
 
 
     public AuthorizationFilter(AuthenticationManager authenticationManager, UserRepository userRepository) {
         super(authenticationManager);
         this.userRepository = userRepository;
+        this.customUserDetailsService = new CustomUserDetailsService(this.userRepository);
         this.mapper = new ObjectMapper();
+        mapper.registerModule(new JavaTimeModule());
     }
 
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws IOException, ServletException {
-        final String header = request.getHeader(JwtProvider.headerParam);
+        String header = request.getHeader(JwtProvider.headerParam);
         if (header != null && header.startsWith(JwtProvider.prefix)) {
-            final DecodedJWT decoded = JwtProvider.verifyJwt(header.replace(JwtProvider.prefix, ""));
-            final ObjectNode userNode = this.mapper.readValue(decoded.getClaim("user").asString(), ObjectNode.class);
-            final User user = this.mapper.convertValue(userNode, User.class);
+            header = header.replace("Bearer ", "");
+            DecodedJWT decoded = JwtProvider.verifyJwt(header);
+            ObjectNode userNode = this.mapper.readValue(decoded.getClaim("user").asString(), ObjectNode.class);
+            User user = this.mapper.convertValue(userNode, User.class);
+            UserDetails userDetails = this.customUserDetailsService.loadUserByUsername(user.getEmail());
+            this.userRepository.findById(user.getId()).ifPresent(entity -> {
+                SecurityContextHolder.getContext().setAuthentication(new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities()));
+            });
         }
         chain.doFilter(request, response);
     }

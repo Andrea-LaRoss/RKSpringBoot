@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Data;
+import lombok.ToString;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
@@ -13,6 +14,7 @@ import java.util.Set;
 
 @Entity
 @Table(name = "user")
+@ToString(exclude = "reservations")
 @Data
 public class User implements Serializable {
 
@@ -49,14 +51,5 @@ public class User implements Serializable {
     @JsonIgnore
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Reservation> reservations;
-
-    @Override
-    public String toString() {
-        if(this.isAdmin()) {
-            return "ADMIN";
-        } else {
-            return "USER";
-        }
-    }
 
 }

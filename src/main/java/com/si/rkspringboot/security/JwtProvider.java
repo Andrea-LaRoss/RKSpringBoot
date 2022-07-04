@@ -54,7 +54,7 @@ public class JwtProvider {
 
 
     public static DecodedJWT verifyJwt(String jwt) {
-        return JWT.require(Algorithm.HMAC256(secret)).build().verify(jwt);
+        return JWT.require(Algorithm.HMAC256(JwtProvider.secret)).withIssuer(JwtProvider.issuer).build().verify(jwt);
     }
 
 }
