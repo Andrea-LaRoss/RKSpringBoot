@@ -24,7 +24,7 @@ public class AuthenticationService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    public String login(String email, String password) {
+    public Map<String, Object> login(String email, String password) {
         User user = this.userRepository.searchUserByEmail(email);
         if (!this.passwordEncoder.matches(password, user.getPassword())) {
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Bad credentials");
@@ -34,6 +34,9 @@ public class AuthenticationService {
         ObjectNode userNode = mapper.convertValue(user, ObjectNode.class);
         Map<String, Object> claimMap = new HashMap<>(0);
         claimMap.put("user", userNode);
-        return JwtProvider.createJwt(email, claimMap);
+        String jwt =  JwtProvider.createJwt(email, claimMap);
+        claimMap.remove("user");
+        claimMap.put("token", jwt);
+        return claimMap;
     }
 }
