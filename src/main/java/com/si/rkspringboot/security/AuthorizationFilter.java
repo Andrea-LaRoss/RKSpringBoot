@@ -46,9 +46,8 @@ public class AuthorizationFilter extends BasicAuthenticationFilter {
         if (header != null && header.startsWith(JwtProvider.prefix)) {
             header = header.replace("Bearer ", "");
             DecodedJWT decoded = JwtProvider.verifyJwt(header);
-            ObjectNode userNode = this.mapper.readValue(decoded.getClaim("user").asString(), ObjectNode.class);
-            User user = this.mapper.convertValue(userNode, User.class);
-            UserDetails userDetails = this.customUserDetailsService.loadUserByUsername(user.getEmail());
+            User user = this.userRepository.searchUserByEmail(decoded.getClaim("sub").asString());
+            UserDetails userDetails = this.customUserDetailsService.loadUserByUsername(decoded.getClaim("sub").asString());
             this.userRepository.findById(user.getId()).ifPresent(entity -> {
                 SecurityContextHolder.getContext().setAuthentication(new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities()));
             });

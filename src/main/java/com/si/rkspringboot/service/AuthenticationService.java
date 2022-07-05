@@ -29,13 +29,9 @@ public class AuthenticationService {
         if (!this.passwordEncoder.matches(password, user.getPassword())) {
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Bad credentials");
         }
-        ObjectMapper mapper = new ObjectMapper();
-        mapper.registerModule(new JavaTimeModule());
-        ObjectNode userNode = mapper.convertValue(user, ObjectNode.class);
         Map<String, Object> claimMap = new HashMap<>(0);
-        claimMap.put("user", userNode);
+        claimMap.put("role", user.isAdmin()? "ADMIN" : "USER");
         String jwt =  JwtProvider.createJwt(email, claimMap);
-        claimMap.remove("user");
         claimMap.put("token", jwt);
         return claimMap;
     }
