@@ -10,16 +10,6 @@ public interface CarService {
 
     public List<CarDto> selAll();
 
-    public List<CarDto> searchByBrand(String brand);
-
-    public List<CarDto> searchByModel(String model);
-
-    public List<CarDto> searchByType(String type);
-
-    public List<CarDto> searchByNumPlate(String numPlate);
-
-    public List<CarDto> searchByRegDate(LocalDate regDate);
-
     public CarDto checkNumPlate(String numPlate);
 
     public Car getCar(Long id);

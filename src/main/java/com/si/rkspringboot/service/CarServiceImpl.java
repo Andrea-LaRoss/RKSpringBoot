@@ -31,41 +31,6 @@ public class CarServiceImpl implements CarService{
 
 
     @Override
-    public List<CarDto> searchByBrand(String brand) {
-        List<Car> carsList = carRepository.searchByBrandContaining(brand);
-        return this.convertToDtoList(carsList);
-    }
-
-
-    @Override
-    public List<CarDto> searchByModel(String model) {
-        List<Car> carsList = carRepository.searchByModelContaining(model);
-        return this.convertToDtoList(carsList);
-    }
-
-
-    @Override
-    public List<CarDto> searchByType(String type) {
-        List<Car> carsList = carRepository.searchByTypeContaining(type);
-        return this.convertToDtoList(carsList);
-    }
-
-
-    @Override
-    public List<CarDto> searchByNumPlate(String numPlate) {
-        List<Car> carsList = carRepository.searchByNumPlateContaining(numPlate);
-        return this.convertToDtoList(carsList);
-    }
-
-
-    @Override
-    public List<CarDto> searchByRegDate(LocalDate regDate) {
-        List<Car> carsList = carRepository.searchAllByRegDate(regDate);
-        return this.convertToDtoList(carsList);
-    }
-
-
-    @Override
     public CarDto checkNumPlate(String numPlate) {
         Car car = carRepository.searchCarByNumPlate(numPlate);
         return this.convertToDto(car);

@@ -10,14 +10,6 @@ public interface UserService {
 
     public List<UserDto> selAll();
 
-    public List<UserDto> searchByEmail(String email);
-
-    public List<UserDto> searchByFirstName(String firstName);
-
-    public List<UserDto> searchByLastName(String lastName);
-
-    public List<UserDto> searchByBirthday(LocalDate birthday);
-
     public UserDto checkEmail(String email);
 
     public User getUser(Long id);

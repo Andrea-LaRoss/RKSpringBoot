@@ -18,12 +18,8 @@ public class FiltersCorsConfig implements WebMvcConfigurer
             {
                 registry
                         .addMapping("/**")
-                        .allowedOrigins("*")
-                        .allowedMethods("PUT","DELETE","GET","POST","OPTIONS","HEAD","PATCH")
-                        .allowedHeaders("*")
-                        .exposedHeaders("header1","header2","Authorization","Content-Type")
-                        .allowCredentials(false)
-                        .maxAge(3600);
+                        .allowedOrigins("http://localhost:4200")
+                        .allowedMethods("PUT","DELETE","GET","POST","OPTIONS","HEAD","PATCH");
             }
         };
     }

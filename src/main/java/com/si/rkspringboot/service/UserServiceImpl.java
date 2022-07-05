@@ -30,34 +30,6 @@ public class UserServiceImpl implements UserService{
 
 
     @Override
-    public List<UserDto> searchByEmail(String email) {
-        List<User> usersList = userRepository.searchByEmailContaining(email);
-        return this.convertToDtoList(usersList);
-    }
-
-
-    @Override
-    public List<UserDto> searchByFirstName(String firstName) {
-        List<User> usersList = userRepository.searchByFirstNameContaining(firstName);
-        return this.convertToDtoList(usersList);
-    }
-
-
-    @Override
-    public List<UserDto> searchByLastName(String lastName) {
-        List<User> usersList = userRepository.searchByLastNameContaining(lastName);
-        return this.convertToDtoList(usersList);
-    }
-
-
-    @Override
-    public List<UserDto> searchByBirthday(LocalDate birthday) {
-        List<User> usersList = userRepository.searchAllByBirthday(birthday);
-        return this.convertToDtoList(usersList);
-    }
-
-
-    @Override
     public UserDto checkEmail(String email) {
         User user = userRepository.searchUserByEmail(email);
         return this.convertToDto(user);
