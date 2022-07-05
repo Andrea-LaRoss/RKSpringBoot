@@ -8,16 +8,6 @@ import java.util.List;
 
 public interface CarRepository extends JpaRepository<Car, Long> {
 
-    List<Car> searchByBrandContaining(String brand);
-
-    List<Car> searchByModelContaining(String model);
-
-    List<Car> searchByTypeContaining(String type);
-
-    List<Car> searchByNumPlateContaining(String numPlate);
-
-    List<Car> searchAllByRegDate(LocalDate regDate);
-
     Car searchCarByNumPlate(String numPlate);
 
 }

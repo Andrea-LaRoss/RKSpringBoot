@@ -29,6 +29,17 @@ public class CarController {
     }
 
 
+    @GetMapping("/{id}")
+    public ResponseEntity<Car> getCar(@PathVariable("id") Long id) {
+        Car car = carService.getCar(id);
+        if(car == null) {
+            return new ResponseEntity<Car>(HttpStatus.NOT_FOUND);
+        } else {
+            return new ResponseEntity<Car>(car, HttpStatus.OK);
+        }
+    }
+
+
     @GetMapping("/check/{value}")
     public ResponseEntity<CarDto> checkPlate(@PathVariable("value") String numPlate) {
         CarDto car = carService.checkNumPlate(numPlate);
@@ -40,7 +51,7 @@ public class CarController {
     }
 
 
-    @GetMapping("/remove/{id}")
+    @DeleteMapping("/remove/{id}")
     public void removeCar(@PathVariable("id") Long id) {
         Car car = carService.getCar(id);
         carService.delCar(car);
