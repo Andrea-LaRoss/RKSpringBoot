@@ -59,7 +59,7 @@ public class CarController {
 
     @PostMapping("/add")
     public void addCar(@RequestBody Car car) {
-
+        carService.insCar(car);
     }
 
 }

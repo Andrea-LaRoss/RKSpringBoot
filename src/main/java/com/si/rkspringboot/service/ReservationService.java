@@ -11,11 +11,11 @@ public interface ReservationService {
 
     public List<ReservationDto> selAll();
 
-    public Reservation getReservation(Long id);
+    public ReservationDto getReservation(Long id);
 
     public List<CarDto> availableCars(LocalDate startDate, LocalDate endDate);
 
-    public void delReservation(Reservation reservation);
+    public void delReservation(Long id);
 
     public void insReservation(Reservation reservation);
 

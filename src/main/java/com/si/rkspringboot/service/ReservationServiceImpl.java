@@ -2,8 +2,10 @@ package com.si.rkspringboot.service;
 
 import com.si.rkspringboot.dto.CarDto;
 import com.si.rkspringboot.dto.ReservationDto;
+import com.si.rkspringboot.dto.UserDto;
 import com.si.rkspringboot.entity.Car;
 import com.si.rkspringboot.entity.Reservation;
+import com.si.rkspringboot.entity.User;
 import com.si.rkspringboot.repository.CarRepository;
 import com.si.rkspringboot.repository.ReservationRepository;
 import org.modelmapper.ModelMapper;
@@ -40,19 +42,20 @@ public class ReservationServiceImpl implements ReservationService{
         List<Reservation> reservationsList = reservationRepository.searchAllByStartDateBetweenOrEndDateBetween(startDate, endDate, startDate, endDate);
         List<Car> carsList = carRepository.findAll();
         reservationsList.forEach(r -> carsList.remove(r.getCar()));
-
         return convertToDtoCars(carsList);
     }
 
-    @Override
-    public Reservation getReservation(Long id) {
-        return reservationRepository.getReferenceById(id);
-    }
 
     @Override
-    public void delReservation(Reservation reservation) {
-        reservationRepository.delete(reservation);
+    public ReservationDto getReservation(Long id) {
+        Reservation reservation = reservationRepository.getReferenceById(id);
+        return this.convertToDto(reservation);
     }
+
+
+    @Override
+    public void delReservation(Long id) { reservationRepository.deleteById(id); }
+
 
     @Override
     public void insReservation(Reservation reservation) {
@@ -69,6 +72,15 @@ public class ReservationServiceImpl implements ReservationService{
                     .collect(Collectors.toList());
         }
         return reservationsDto;
+    }
+
+
+    private ReservationDto convertToDto(Reservation reservation) {
+        ReservationDto reservationDto = null;
+        if (reservation != null) {
+            reservationDto =  modelMapper.map(reservation, ReservationDto.class);
+        }
+        return reservationDto;
     }
 
 

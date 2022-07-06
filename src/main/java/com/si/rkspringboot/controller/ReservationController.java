@@ -42,6 +42,17 @@ public class ReservationController {
     }
 
 
+    @GetMapping("/load/{id}")
+    public ResponseEntity<ReservationDto> getReservation(@PathVariable("id") Long id) {
+        ReservationDto reservationDto = reservationService.getReservation(id);
+        if(reservationDto == null) {
+            return new ResponseEntity<ReservationDto>(HttpStatus.NOT_FOUND);
+        } else {
+            return new ResponseEntity<ReservationDto>(reservationDto, HttpStatus.OK);
+        }
+    }
+
+
     @GetMapping("/available")
     public ResponseEntity<List<CarDto>> getAvailableCars(@RequestParam("startDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate, @RequestParam("endDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate) {
         List<CarDto> carsList = reservationService.availableCars(startDate, endDate);
@@ -55,8 +66,7 @@ public class ReservationController {
 
     @DeleteMapping("/remove/{id}")
     public void deleteReservations(@PathVariable("id") Long id) {
-        Reservation reservation = reservationService.getReservation(id);
-        reservationService.delReservation(reservation);
+        reservationService.delReservation(id);
     }
 
 
