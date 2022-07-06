@@ -16,6 +16,6 @@ public interface CarService {
 
     public void delCar(Long id);
 
-    public void insCar(Car car);
+    public void insCar(CarDto carDto);
 
 }

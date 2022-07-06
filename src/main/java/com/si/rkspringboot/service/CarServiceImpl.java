@@ -49,7 +49,9 @@ public class CarServiceImpl implements CarService{
 
 
     @Override
-    public void insCar(Car car) { carRepository.save(car); }
+    public void insCar(CarDto carDto) {
+        Car car = convertToCar(carDto);
+        carRepository.save(car); }
 
 
     private CarDto convertToDto(Car car) {
@@ -58,6 +60,15 @@ public class CarServiceImpl implements CarService{
             carDto =  modelMapper.map(car, CarDto.class);
         }
         return carDto;
+    }
+
+
+    private Car convertToCar(CarDto carDto) {
+        Car car = null;
+        if (carDto != null) {
+            car =  modelMapper.map(carDto, Car.class);
+        }
+        return car;
     }
 
 

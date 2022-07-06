@@ -58,8 +58,8 @@ public class CarController {
 
 
     @RequestMapping(value = "/add", method = { RequestMethod.POST, RequestMethod.PUT })
-    public void addCar(@RequestBody Car car) {
-        carService.insCar(car);
+    public void addCar(@RequestBody CarDto carDto) {
+        carService.insCar(carDto);
     }
 
 }
