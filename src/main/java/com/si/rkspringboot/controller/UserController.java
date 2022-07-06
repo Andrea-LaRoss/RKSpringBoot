@@ -60,7 +60,7 @@ public class UserController {
     }
 
 
-    @PostMapping("/add")
+    @RequestMapping(value = "/add", method = { RequestMethod.POST, RequestMethod.PUT })
     public void addUser(@RequestBody User user) {
         userService.insUser(user);
     }

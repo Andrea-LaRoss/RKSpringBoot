@@ -57,7 +57,7 @@ public class CarController {
     }
 
 
-    @PostMapping("/add")
+    @RequestMapping(value = "/add", method = { RequestMethod.POST, RequestMethod.PUT })
     public void addCar(@RequestBody Car car) {
         carService.insCar(car);
     }

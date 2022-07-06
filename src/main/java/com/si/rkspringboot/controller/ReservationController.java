@@ -70,10 +70,8 @@ public class ReservationController {
     }
 
 
-    @GetMapping("/add")
-    public void addReservation() {
-        Reservation reservation = new Reservation();
-
+    @RequestMapping(value = "/add", method = { RequestMethod.POST, RequestMethod.PUT })
+    public void addReservation(@RequestBody Reservation reservation) {
         reservationService.insReservation(reservation);
     }
 
