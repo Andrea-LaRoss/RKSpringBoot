@@ -12,9 +12,9 @@ public interface CarService {
 
     public CarDto checkNumPlate(String numPlate);
 
-    public Car getCar(Long id);
+    public CarDto getCar(Long id);
 
-    public void delCar(Car car);
+    public void delCar(Long id);
 
     public void insCar(Car car);
 

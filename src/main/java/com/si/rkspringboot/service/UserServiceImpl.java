@@ -37,13 +37,14 @@ public class UserServiceImpl implements UserService{
 
 
     @Override
-    public User getUser(Long id) {
-        return userRepository.getReferenceById(id);
+    public UserDto getUser(Long id) {
+        User user = userRepository.getReferenceById(id);
+        return this.convertToDto(user);
     }
 
 
     @Override
-    public void delUser(User user) { userRepository.delete(user); }
+    public void delUser(Long id) { userRepository.deleteById(id); }
 
 
     @Override

@@ -38,13 +38,14 @@ public class CarServiceImpl implements CarService{
 
 
     @Override
-    public Car getCar(Long id) {
-        return carRepository.getReferenceById(id);
+    public CarDto getCar(Long id) {
+        Car car = carRepository.getReferenceById(id);
+        return this.convertToDto(car);
     }
 
 
     @Override
-    public void delCar(Car car) { carRepository.delete(car); }
+    public void delCar(Long id) { carRepository.deleteById(id); }
 
 
     @Override

@@ -12,9 +12,9 @@ public interface UserService {
 
     public UserDto checkEmail(String email);
 
-    public User getUser(Long id);
+    public UserDto getUser(Long id);
 
-    public void delUser(User user);
+    public void delUser(Long id);
 
     public void insUser(User user);
 

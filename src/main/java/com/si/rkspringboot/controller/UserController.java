@@ -32,6 +32,17 @@ public class UserController {
     }
 
 
+    @GetMapping("/load/{id}")
+    public ResponseEntity<UserDto> getUser(@PathVariable("id") Long id) {
+        UserDto user = userService.getUser(id);
+        if(user == null) {
+            return new ResponseEntity<UserDto>(HttpStatus.NOT_FOUND);
+        } else {
+            return new ResponseEntity<UserDto>(user, HttpStatus.OK);
+        }
+    }
+
+
     @GetMapping("/check/{value}")
     public ResponseEntity<UserDto> checkEmail(@PathVariable("value") String email) {
         UserDto user = userService.checkEmail(email);
@@ -45,17 +56,12 @@ public class UserController {
 
     @DeleteMapping("/remove/{id}")
     public void removeUser(@PathVariable("id") Long id) {
-        User user = userService.getUser(id);
-        userService.delUser(user);
+        userService.delUser(id);
     }
 
 
     @PostMapping("/add")
-    public void addUser() {
-        User user = new User();
-        user.setEmail("Test");
-        user.setFirstName("Test");
-        user.setLastName("Test");
+    public void addUser(@RequestBody User user) {
         userService.insUser(user);
     }
 
