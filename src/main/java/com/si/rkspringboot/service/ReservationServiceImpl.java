@@ -2,10 +2,8 @@ package com.si.rkspringboot.service;
 
 import com.si.rkspringboot.dto.CarDto;
 import com.si.rkspringboot.dto.ReservationDto;
-import com.si.rkspringboot.dto.UserDto;
 import com.si.rkspringboot.entity.Car;
 import com.si.rkspringboot.entity.Reservation;
-import com.si.rkspringboot.entity.User;
 import com.si.rkspringboot.repository.CarRepository;
 import com.si.rkspringboot.repository.ReservationRepository;
 import org.modelmapper.ModelMapper;
@@ -58,7 +56,8 @@ public class ReservationServiceImpl implements ReservationService{
 
 
     @Override
-    public void insReservation(Reservation reservation) {
+    public void insReservation(ReservationDto reservationDto) {
+        Reservation reservation = convertToReservation(reservationDto);
         reservationRepository.save(reservation);
     }
 
@@ -81,6 +80,15 @@ public class ReservationServiceImpl implements ReservationService{
             reservationDto =  modelMapper.map(reservation, ReservationDto.class);
         }
         return reservationDto;
+    }
+
+
+    private Reservation convertToReservation(ReservationDto reservationDto) {
+        Reservation reservation = null;
+        if (reservationDto != null) {
+            reservation =  modelMapper.map(reservationDto, Reservation.class);
+        }
+        return reservation;
     }
 
 

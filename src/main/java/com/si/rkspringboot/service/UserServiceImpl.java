@@ -1,6 +1,8 @@
 package com.si.rkspringboot.service;
 
+import com.si.rkspringboot.dto.CarDto;
 import com.si.rkspringboot.dto.UserDto;
+import com.si.rkspringboot.entity.Car;
 import com.si.rkspringboot.entity.User;
 import com.si.rkspringboot.repository.UserRepository;
 import org.modelmapper.ModelMapper;
@@ -48,7 +50,9 @@ public class UserServiceImpl implements UserService{
 
 
     @Override
-    public void insUser(User user) { userRepository.save(user); }
+    public void insUser(UserDto userDto) {
+        User user = convertToUser(userDto);
+        userRepository.save(user); }
 
 
     private UserDto convertToDto(User user) {
@@ -57,6 +61,15 @@ public class UserServiceImpl implements UserService{
             userDto =  modelMapper.map(user, UserDto.class);
         }
         return userDto;
+    }
+
+
+    private User convertToUser(UserDto userDto) {
+        User user = null;
+        if (userDto != null) {
+            user =  modelMapper.map(userDto, User.class);
+        }
+        return user;
     }
 
 

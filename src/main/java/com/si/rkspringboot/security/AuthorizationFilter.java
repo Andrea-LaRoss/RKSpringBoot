@@ -1,19 +1,14 @@
 package com.si.rkspringboot.security;
 
 import com.auth0.jwt.interfaces.DecodedJWT;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.si.rkspringboot.entity.User;
 import com.si.rkspringboot.repository.UserRepository;
-import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.si.rkspringboot.service.CustomUserDetailsService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
-import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
@@ -26,7 +21,6 @@ public class AuthorizationFilter extends BasicAuthenticationFilter {
 
 
     private final UserRepository userRepository;
-    private final ObjectMapper mapper;
 
     private CustomUserDetailsService customUserDetailsService;
 
@@ -35,8 +29,6 @@ public class AuthorizationFilter extends BasicAuthenticationFilter {
         super(authenticationManager);
         this.userRepository = userRepository;
         this.customUserDetailsService = new CustomUserDetailsService(this.userRepository);
-        this.mapper = new ObjectMapper();
-        mapper.registerModule(new JavaTimeModule());
     }
 
 

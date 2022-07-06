@@ -2,23 +2,15 @@ package com.si.rkspringboot.controller;
 
 import com.si.rkspringboot.dto.CarDto;
 import com.si.rkspringboot.dto.ReservationDto;
-import com.si.rkspringboot.dto.UserDto;
-import com.si.rkspringboot.entity.Car;
-import com.si.rkspringboot.entity.Reservation;
-import com.si.rkspringboot.service.CarService;
 import com.si.rkspringboot.service.ReservationService;
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.xml.ws.Response;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/reservations")
@@ -26,9 +18,6 @@ public class ReservationController {
 
     @Autowired
     private ReservationService reservationService;
-
-    @Autowired
-    private ModelMapper modelMapper;
 
 
     @GetMapping()
@@ -71,8 +60,8 @@ public class ReservationController {
 
 
     @RequestMapping(value = "/add", method = { RequestMethod.POST, RequestMethod.PUT })
-    public void addReservation(@RequestBody Reservation reservation) {
-        reservationService.insReservation(reservation);
+    public void addReservation(@RequestBody ReservationDto reservationDto) {
+        reservationService.insReservation(reservationDto);
     }
 
 }

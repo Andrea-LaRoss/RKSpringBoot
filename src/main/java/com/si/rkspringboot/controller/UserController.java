@@ -1,16 +1,12 @@
 package com.si.rkspringboot.controller;
 
 import com.si.rkspringboot.dto.UserDto;
-import com.si.rkspringboot.entity.User;
 import com.si.rkspringboot.service.UserService;
-import org.apache.tomcat.jni.Local;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -61,8 +57,8 @@ public class UserController {
 
 
     @RequestMapping(value = "/add", method = { RequestMethod.POST, RequestMethod.PUT })
-    public void addUser(@RequestBody User user) {
-        userService.insUser(user);
+    public void addUser(@RequestBody UserDto userDto) {
+        userService.insUser(userDto);
     }
 
 }

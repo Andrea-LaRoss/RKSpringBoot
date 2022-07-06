@@ -1,6 +1,5 @@
 package com.si.rkspringboot.repository;
 
-import com.si.rkspringboot.entity.Car;
 import com.si.rkspringboot.entity.Reservation;
 import org.springframework.data.jpa.repository.JpaRepository;
 

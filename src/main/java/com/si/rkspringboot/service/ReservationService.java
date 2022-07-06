@@ -2,7 +2,6 @@ package com.si.rkspringboot.service;
 
 import com.si.rkspringboot.dto.CarDto;
 import com.si.rkspringboot.dto.ReservationDto;
-import com.si.rkspringboot.entity.Reservation;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -17,6 +16,6 @@ public interface ReservationService {
 
     public void delReservation(Long id);
 
-    public void insReservation(Reservation reservation);
+    public void insReservation(ReservationDto reservationDto);
 
 }

@@ -1,7 +1,6 @@
 package com.si.rkspringboot.controller;
 
 import com.si.rkspringboot.dto.CarDto;
-import com.si.rkspringboot.entity.Car;
 import com.si.rkspringboot.service.CarService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

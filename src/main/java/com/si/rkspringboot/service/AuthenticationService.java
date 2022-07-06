@@ -1,11 +1,8 @@
 package com.si.rkspringboot.service;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.si.rkspringboot.entity.User;
 import com.si.rkspringboot.repository.UserRepository;
 import com.si.rkspringboot.security.JwtProvider;
-import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
